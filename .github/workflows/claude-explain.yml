@@ -52,7 +52,7 @@ jobs:
             {
               "permissions": {
                 "blockReadsOutsideWorkingDirectories": true,
-                "deny": ["Read(//proc/**)", "Read(//etc/**)", "Read(~/**)"]
+                "deny": ["Read(//proc/**)", "Read(//etc/**)"]
               }
             }
           claude_args: |
