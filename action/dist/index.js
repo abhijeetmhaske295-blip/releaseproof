@@ -74734,6 +74734,15 @@ function duration(ms2) {
 function shortRepo(repository) {
   return repository.replace(/^https:\/\/github\.com\//, "");
 }
+function transparencyLogLine(log) {
+  if (!log || !/^\d+$/.test(log.logIndex)) {
+    return void 0;
+  }
+  const seconds = /^\d+$/.test(log.integratedTime) ? Number(log.integratedTime) : Number.NaN;
+  const date = new Date(seconds * 1e3);
+  const when = Number.isNaN(date.getTime()) ? "" : `, integrated ${date.toISOString()}`;
+  return `log https://search.sigstore.dev/?logIndex=${log.logIndex}${when}`;
+}
 function provenanceLines(report) {
   const { provenance } = report;
   const status = provenance.status.toUpperCase();
@@ -74751,9 +74760,9 @@ function provenanceLines(report) {
     if (details.length > 0) {
       out += cont(details.join(", "));
     }
-    if (provenance.transparencyLog) {
-      const { logIndex, integratedTime } = provenance.transparencyLog;
-      out += cont(`log https://search.sigstore.dev/?logIndex=${logIndex} (${integratedTime})`);
+    const log = transparencyLogLine(provenance.transparencyLog);
+    if (log) {
+      out += cont(log);
     }
     return out;
   }

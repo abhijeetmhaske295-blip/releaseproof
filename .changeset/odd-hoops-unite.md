@@ -2,4 +2,4 @@
 "releaseproof": patch
 ---
 
-add Rekor transparency log link to provenance text report output
+Text report: link to the Rekor transparency log entry (with its integration time) when the provenance is verified.
