@@ -46,6 +46,10 @@ function provenanceLines(report: CheckReport): string {
     if (details.length > 0) {
       out += cont(details.join(", "));
     }
+    if (provenance.transparencyLog) {
+      const { logIndex, integratedTime } = provenance.transparencyLog;
+      out += cont(`log https://search.sigstore.dev/?logIndex=${logIndex} (${integratedTime})`);
+    }
     return out;
   }
   const why = provenance.problems.length > 0 ? `  ${provenance.problems.join("; ")}` : "";
